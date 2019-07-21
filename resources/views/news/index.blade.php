@@ -11,7 +11,10 @@
                             <div class="caption mx-auto">
                                 <div class="image">
                                     @if ($headline->image_path)
-                                        <img src="{{ asset('storage/image/' . $headline->image_path) }}">
+                                        @if ($is_image_s3 === true)
+                                            <img src="{{ $headline->image_path }}" title="s3-image">
+                                        @elseif ($env === 'heroku')
+                                            <img src="{{ asset('storage/image/' . $headline->image_path) }}" title="local-image">                                        @endif
                                     @endif
                                 </div>
                                 <div class="title p-2">

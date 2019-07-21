@@ -4,18 +4,33 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App;
 use App\News;
 use App\History;
 use Carbon\Carbon;
+use Storage;
 
 class NewsController extends Controller
 {
+    private $is_image_s3 = false;
+
+    public function __construct()
+    {
+        //
+        $this->is_image_s3 = env('IS_IMAGE_S3', false);
+    }
+
     //
     public function add()
     {
         return view('admin.news.create');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function create(Request $request)
     {
 
@@ -25,8 +40,15 @@ class NewsController extends Controller
         $form = $request->all();
 
         if (isset($form['image'])) {
-            $path = $request->file('image')->store('public/image');
-            $news->image_path = basename($path);
+
+            // AWS S3
+            if ($this->is_image_s3 === true) {
+                $path = Storage::disk('s3')->putFile('/', $form['image'], 'public');
+                $news->image_path = Storage::disk('s3')->url($path);
+            } else {
+                $path = $request->file('image')->store('public/image');
+                $news->image_path = basename($path);
+            }
         } else {
             $news->image->image_path = null;
         }
@@ -71,8 +93,14 @@ class NewsController extends Controller
 
         $news_form = $request->all();
         if (isset($news_form['image'])) {
-            $path = $request->file('image')->store('public/image');
-            $news->image_path = basename($path);
+            // 画像を変更するAWS S3
+            if ($this->is_image_s3 === true) {
+                $path = Storage::disk('s3')->putFile('/', $news_form['image'], 'public');
+                $news->image_path = Storage::disk('s3')->url($path);
+            } else {
+                $path = $request->file('image')->store('public/image');
+                $news->image_path = basename($path);
+            }
         } else {
             $news->image_path = null;
             unset($news_form['remove']);

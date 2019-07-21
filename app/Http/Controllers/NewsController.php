@@ -12,6 +12,8 @@ class NewsController extends Controller
     {
         $cond_title = $request->cond_title;
 
+        $is_image_s3 = env('IS_IMAGE_S3', false);
+
         if ($cond_title != '') {
             $posts = News::where('title', $cond_title).orderBy('updated_at', 'desc')->get();
         } else {
@@ -28,7 +30,8 @@ class NewsController extends Controller
             [
                 'headline' => $headline,
                 'posts' => $posts,
-                'cond_title' => $cond_title
+                'cond_title' => $cond_title,
+                'is_image_s3' => $is_image_s3,
             ]
         );
     }
