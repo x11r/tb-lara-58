@@ -64,6 +64,7 @@ class NewsController extends Controller
 
     public function index(Request $request)
     {
+        \Log::debug(__FILE__);
         $cond_title = $request->cond_title;
         if ($cond_title != '') {
             $posts = News::where('title', $cond_title)->get();
@@ -92,16 +93,20 @@ class NewsController extends Controller
         $news = News::find($request->id);
 
         $news_form = $request->all();
+
         if (isset($news_form['image'])) {
-            // 画像を変更するAWS S3
+            // 画像を変更する
             if ($this->is_image_s3 === true) {
+                // AWS S3
                 $path = Storage::disk('s3')->putFile('/', $news_form['image'], 'public');
+
                 $news->image_path = Storage::disk('s3')->url($path);
             } else {
                 $path = $request->file('image')->store('public/image');
                 $news->image_path = basename($path);
             }
-        } else {
+        } elseif (isset($news_form['remove']) && $news_form['remove'] === 'true') {
+            // ファイル削除
             $news->image_path = null;
             unset($news_form['remove']);
         }
