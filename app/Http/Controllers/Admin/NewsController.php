@@ -50,7 +50,7 @@ class NewsController extends Controller
                 $news->image_path = basename($path);
             }
         } else {
-            $news->image->image_path = null;
+            $news->image_path = null;
         }
 
         unset($form['_token']);
@@ -59,12 +59,11 @@ class NewsController extends Controller
         $news->fill($form);
         $news->save();
 
-        return redirect('admin/news/create');
+        return redirect('admin/news');
     }
 
     public function index(Request $request)
     {
-        \Log::debug(__FILE__);
         $cond_title = $request->cond_title;
         if ($cond_title != '') {
             $posts = News::where('title', $cond_title)->get();
