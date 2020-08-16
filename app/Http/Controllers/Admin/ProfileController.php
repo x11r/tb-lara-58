@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App;
 use App\Profile;
+use App\ProfileHistory;
+use Carbon\Carbon;
+use phpDocumentor\Reflection\Types\Integer;
 
 class ProfileController extends Controller
 {
@@ -37,17 +40,7 @@ class ProfileController extends Controller
         return redirect('admin/profile/create');
     }
 
-//    public function edit2(Request $request)
-//    {
-//        $profile = Profile::find($request->id);
-//        if (empty($profile)) {
-//            abort(404);
-//        }
-//
-//        return view('admin.profile.edit', ['profile_form' => $profile]);
-//    }
-
-    public function edit($profile_id)
+    public function edit(Integer $profile_id)
     {
         $profile = Profile::find($profile_id);
         if (empty($profile)) {
@@ -69,9 +62,14 @@ class ProfileController extends Controller
         unset($profile_form['image']);
         unset($profile_form['remove']);
 
-        \Log::debug(__LINE__.' '.__FILE__.' '.print_r($profile_form, true));
-
+        // Profile情報の更新
         $profile->fill($profile_form)->save();
+
+        // 編集履歴を登録する
+        $history = new ProfileHistory;
+        $history->profile_id = $profile_id;
+        $history->edited_at = Carbon::now();
+        $history->save();
 
         return redirect('admin/profile/edit/' . $profile_id);
     }

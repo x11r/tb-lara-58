@@ -47,14 +47,26 @@
                     <div class="form-group row">
                         <label class="col-md-2" for="introduction">自己紹介</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="introduction"
-                                   value="{{ $profile_form->introduction }}">
+                            <textarea class="form-control" name="introduction" rows="5">{{ $profile_form->introduction }}</textarea>
                         </div>
                     </div>
                     {{ csrf_field() }}
                     <input type="hidden" name="id" value="{{ $profile_form->id }}">
                     <input type="submit" class="btn btn-primary" value="更新">
                 </form>
+
+                <div class="row mt-5">
+                    <div class="col-md-4 mx-auto">
+                        <h2>編集履歴</h2>
+                        @if ($profile_form->histories !== null)
+                            <ul class="list-group">
+                                @foreach ($profile_form->histories as  $history)
+                                    <li class="list-group-item">{{ $history->edited_at }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>
