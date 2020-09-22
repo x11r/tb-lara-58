@@ -33,7 +33,8 @@
                         <tr>
                             <th width="10%">ID</th>
                             <th width="20%">タイトル</th>
-                            <th width="50%">本文</th>
+                            <th width="40%">本文</th>
+                            <th>緯度経度</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -42,7 +43,7 @@
                                 <th>{{ $news->id }}</th>
                                 <td>{{ str_limit($news->title, 100) }}</td>
                                 <td>{{ str_limit($news->body, 250) }}</td>
-
+                                <td>{{ $news->latitude }} {{ $news->longitude }}</td>
                                 <td>
                                     <div>
                                         <a href="{{ action('Admin\NewsController@edit', ['id' => $news->id]) }}">編集</a>
@@ -58,5 +59,18 @@
                 </div>
             </div>
         </div>
+        <div>
+            <div v-for="(att, index) in news" :key="index">
+                index : @{{ index }}
+                title : @{{ att.title }}
+                latitude : @{{ att.latitude }}
+                longitude : @{{ att.longitude }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">message</div>
+            <div class="col-md-10">@{{ message }}</div>
+        </div>
     </div>
+
 @endsection

@@ -31,4 +31,14 @@ class NewsController extends Controller
         // また View テンプレートに headline、 posts、という変数を渡している
         return view('news.index', ['headline' => $headline, 'posts' => $posts, 'is_image_s3' => $this->is_image_s3]);
     }
+
+
+    public function indexJson(Request $request)
+    {
+        $posts = News::all()->sortByDesc('updated_at');
+
+        // news/index.blade.php ファイルを渡している
+        // また View テンプレートに headline、 posts、という変数を渡している
+        return response()->json($posts);
+    }
 }

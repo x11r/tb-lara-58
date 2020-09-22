@@ -46,6 +46,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 });
 
+Route::group(['prefix' => 'api/v1'], function() {
+    Route::get('news/all', 'NewsController@indexJson');
+});
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

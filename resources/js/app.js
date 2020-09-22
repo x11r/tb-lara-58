@@ -29,5 +29,56 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data : function() {
+        return {
+            message: "default",
+            news: [
+                {
+                    'title': 't1',
+                    'body': 'body1',
+                    'latitude': '129',
+                    'longitude': '34'
+                },
+                {
+                    'title': 't2',
+                    'body': 'body2',
+                    'latitude': '129',
+                    'longitude': '34'
+                }
+            ]
+        }
+    },
+    created: function () {
+        // this.getNews(),
+        // console.log('created')
+    },
+    mounted: function () {
+        this.getNews()
+        // console.log('mounted')
+    },
+    methods: {
+        getNews : function() {
+            this.message = "update";
+            console.log('MIX_GOOGLE_API_KEY');
+
+            let googleapikey = process.env.MIX_GOOGLE_API_KEY;
+
+            let url = '/api/v1/news/all';
+            axios.get(url)
+                .then(response  => {
+                    this.news = response.data;
+                    this.message = 'reponse ok';
+                    // console.log(response.data);
+                    console.log(this.news);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
+                .finally(function() {
+                    // console.log('finally');
+                })
+            ;
+        }
+    }
 });

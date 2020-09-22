@@ -27,6 +27,17 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-md-2">緯度経度</label>
+                        <div class="col-md-1">緯度</div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="latitude" value="{{ $news_form->latitude }}">
+                        </div>
+                        <div class="col-md-1">経度</div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="longitude" value="{{ $news_form->longitude }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-md-2" for="image">画像</label>
                         <div class="col-md-10">
                             <input type="file" class="form-control-file" name="image">
