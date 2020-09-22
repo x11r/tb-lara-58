@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App;
+use Illuminate\Support\Facades\HTML;
+
+// 追記
 use App\News;
-use App\History;
-use Carbon\Carbon;
-use Storage;
 
 class NewsController extends Controller
 {
@@ -19,16 +17,18 @@ class NewsController extends Controller
         //
         $this->is_image_s3 = env('IS_IMAGE_S3', false);
     }
-
     public function index(Request $request)
     {
-        $cond_title = $request->cond_title;
-        if ($cond_title != '') {
-            $posts = News::where('title', $cond_title)->get();
+        $posts = News::all()->sortByDesc('updated_at');
+
+        if (count($posts) > 0) {
+            $headline = $posts->shift();
         } else {
-            $posts = News::all();
+            $headline = null;
         }
 
-        return view('news.index', ['posts' => $posts, 'cond_title' => $cond_title]);
+        // news/index.blade.php ファイルを渡している
+        // また View テンプレートに headline、 posts、という変数を渡している
+        return view('news.index', ['headline' => $headline, 'posts' => $posts, 'is_image_s3' => $this->is_image_s3]);
     }
 }
