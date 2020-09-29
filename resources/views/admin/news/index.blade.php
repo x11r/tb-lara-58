@@ -59,18 +59,6 @@
                 </div>
             </div>
         </div>
-        <div>
-            <div v-for="(att, index) in news" :key="index">
-                index : @{{ index }}
-                title : @{{ att.title }}
-                latitude : @{{ att.latitude }}
-                longitude : @{{ att.longitude }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2">message</div>
-            <div class="col-md-10">@{{ message }}</div>
-        </div>
     </div>
 
 @endsection

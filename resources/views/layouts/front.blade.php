@@ -15,7 +15,14 @@
     <!-- Scripts -->
     {{-- Laravel標準で用意されているJavascriptを読み込みます --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+{{--    <script src="{{ asset('js/front.js') }}"></script>--}}
+{{--    <script defer async--}}
+{{--            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxzPg1_Z1QwADZ-ISU5iC7GvXiBZUpwQo">--}}
+{{--    </script>--}}
+{{--    <script type="text/javascript" defer>--}}
+{{--        console.log("inline javascript..");--}}
+{{--        initMap();--}}
+{{--    </script>--}}
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
@@ -73,7 +80,7 @@
                     </li>
                 @endguest
                 {{-- 以上までを追記 --}}
-                    
+
                 </ul>
             </div>
         </div>

@@ -12,6 +12,8 @@
                                 <div class="image">
                                     @if ($headline->image_path && $is_image_s3 === true)
                                         <img src="{{ $headline->image_path }}" title="s3-image">
+
+                                        <img src="{{ $headline->image_path }}" title="s3-image">
                                     @endif
                                 </div>
                                 <div class="title p-2">
@@ -44,7 +46,7 @@
                                     {{ str_limit($post->body, 1500) }}
                                 </div>
                             </div>
-                            <div class="image col-md-6 text-right mt-4">
+                            <div class="image col-md-6 text-right mt-4 row">
                                 @if ($post->image_path)
                                     @if ($is_image_s3 === true)
                                         <img src="{{ $post->image_path }}">
@@ -59,6 +61,10 @@
                 @endforeach
             </div>
         </div>
+
+        <div id="map"></div>
+        <google-map-api-loader></google-map-api-loader>
+
     </div>
-    </div>
+
 @endsection

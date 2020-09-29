@@ -9,6 +9,18 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import * as VueGoogleMaps from 'vue2-google-maps'
+
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: process.env.MIX_GOOGLE_API_KEY,
+        libraries: 'places',
+        region: 'JP',
+        language: 'ja'
+    }
+})
+
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -20,8 +32,13 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+let googleApiKey = process.env.MIX_GOOGLE_API_KEY;
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('googlemap-component', require('./components/GoogleMapsComponent.vue').default);
+Vue.component('google-map-api-loader', require('./components/GoogleMapApiLoader.vue').default);
+// Vue.component('google-map-loader', require('./components/GoogleMapLoader.vue').default);
+// Vue.component('google-zip', require('./components/GoogleZip.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -54,13 +71,12 @@ const app = new Vue({
         // console.log('created')
     },
     mounted: function () {
-        this.getNews()
+        //this.getNews()
         // console.log('mounted')
     },
     methods: {
         getNews : function() {
             this.message = "update";
-            console.log('MIX_GOOGLE_API_KEY');
 
             let googleapikey = process.env.MIX_GOOGLE_API_KEY;
 
@@ -68,12 +84,12 @@ const app = new Vue({
             axios.get(url)
                 .then(response  => {
                     this.news = response.data;
-                    this.message = 'reponse ok';
+                    // this.message = 'reponse ok';
                     // console.log(response.data);
-                    console.log(this.news);
+                    // console.log(this.news);
                 })
                 .catch(function(error) {
-                    console.log(error);
+                    // console.log(error);
                 })
                 .finally(function() {
                     // console.log('finally');
