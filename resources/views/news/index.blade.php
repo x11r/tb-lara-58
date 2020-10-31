@@ -61,10 +61,7 @@
                 @endforeach
             </div>
         </div>
-
-        <div id="map"></div>
-        <google-map-api-loader></google-map-api-loader>
-
+        <test-map-multiple></test-map-multiple>
     </div>
 
 @endsection

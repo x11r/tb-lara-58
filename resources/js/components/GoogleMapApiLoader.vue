@@ -1,10 +1,11 @@
 <template>
     <div>
-        <button v-on:click="initializeMap()">一つだけのやつ</button>
-        <div class="map" ref="googleMap1" />
+
         <button v-on:click="showMap()">連続地図表示</button>
 
+        <div>3333333333</div>
         <div class="map" ref="googleMap" v-for="(n, index) in news" >
+            <div />
             <div class="row">
                 <div class="col-md-4">
                     {{ n.title }}
@@ -17,14 +18,13 @@
             <div>
                 {{ n.body }}
             </div>
-
         </div>
     </div>
 </template>
 
 <script>
 import GoogleMapsApiLoader from 'google-maps-api-loader';
-let googleApiKey = 'AIzaSyBxzPg1_Z1QwADZ-ISU5iC7GvXiBZUpwQo';
+let googleApiKey = '';
 
 export default {
     name: 'Map',
@@ -45,6 +45,8 @@ export default {
         this.google = await GoogleMapsApiLoader({
             apiKey: googleApiKey
         });
+        const targetElement = this.$el;
+
         // this.initializeMap();
         // this.showMap();
     },
@@ -61,7 +63,11 @@ export default {
                 let data = response.data;
                 // 緯度経度を決めるオブジェクトを初期化する
                 let position;
+                let map = this.google.maps;
+                this.news = data;
+
                 for (let i = 0 ; i < data.length ; i++) {
+                    // console.log(data[i]);
                     // 緯度経度をセットする
                     position = {
                         center: {
@@ -70,10 +76,15 @@ export default {
                         },
                         zoom: 17
                     }
-                    console.log(position);
-                    new this.google.maps.Map(this.$refs.googleMap, position);
+                    console.log(this.$el);
+                    // new this.google.maps.Map(this.$ref.googleMap[i], position);
+
                 }
-                this.news = data;
+                console.log(this.$refs);
+                console.log(position);
+
+                // new this.google.maps.Map(this.$refs.googleMap, position);
+                // new this.google.maps.Map(this.$refs.googleMap22, position);
             });
         }
     }
@@ -82,7 +93,8 @@ export default {
 
 <style lang="scss" scoped>
 .map {
-    width: 50vw;
-    height: 20vh;
+    width: 30vw;
+    height: 30vh;
+    border: 1px solid #f00;
 }
 </style>

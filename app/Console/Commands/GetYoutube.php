@@ -92,11 +92,20 @@ class GetYoutube extends Command
 
         $path = $this->path_prefix . 'videoCategories?' . http_build_query($params);
 
+
         try {
             $client = new Client(['base_uri' => $this->base_uri]);
             $response = $client->request('GET', $path, $options);
             $result = json_decode($response->getBody()->getContents(), true);
-            \Log::debug(__LINE__.' '.__FILE__.' '.print_r($result, true));
+        } catch (ClientException $e) {
+            \Log::debug(__LINE__.' '.__FILE__.' '.print_r($e->getResponse(), true));
+        }
+
+        try {
+            $client = new Client(['base_uri' => $this->base_uri]);
+            $response = $client->request('GET', $path, $options);
+            $result = json_decode($response->getBody()->getContents(), true);
+//            \Log::debug(__LINE__.' '.__FILE__.' '.print_r($result, true));
         } catch (ClientException $e) {
 //            \Log::debug(__LINE__.' '.__FILE__.' '.print_r($e->getRequest(), true));
             \Log::debug(__LINE__.' '.__FILE__.' '.print_r($e->getResponse(), true));
@@ -138,7 +147,6 @@ class GetYoutube extends Command
 
     private function initializeAccount()
     {
-        $base_url = 'https://account.google.com';
         $base_url = 'https://accounts.google.com';
         $path = 'o/oauth2/auth?'
             . 'key=' . env('GOOGLE_API_KEY');

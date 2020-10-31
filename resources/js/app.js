@@ -34,8 +34,9 @@ Vue.use(VueGoogleMaps, {
 
 
 let googleApiKey = process.env.MIX_GOOGLE_API_KEY;
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-// Vue.component('googlemap-component', require('./components/GoogleMapsComponent.vue').default);
+
+Vue.component('test-map-multiple', require('./components/TestMapMultipleComponent.vue').default);
+Vue.component('test-map-simple', require('./components/TestMapSimpleComponent.vue').default);
 Vue.component('google-map-api-loader', require('./components/GoogleMapApiLoader.vue').default);
 // Vue.component('google-map-loader', require('./components/GoogleMapLoader.vue').default);
 // Vue.component('google-zip', require('./components/GoogleZip.vue').default);
@@ -67,12 +68,8 @@ const app = new Vue({
         }
     },
     created: function () {
-        // this.getNews(),
-        // console.log('created')
     },
     mounted: function () {
-        //this.getNews()
-        // console.log('mounted')
     },
     methods: {
         getNews : function() {

@@ -228,4 +228,5 @@ return [
 
     ],
     'GOOGLE_API_KEY' => env('GOOGLE_API_KEY', 'app.php'),
+    'RAKUTEN_APP_ID' => env('RAKUTEN_APP_ID', 'app.php'),
 ];
