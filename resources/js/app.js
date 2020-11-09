@@ -38,6 +38,7 @@ let googleApiKey = process.env.MIX_GOOGLE_API_KEY;
 Vue.component('test-map-multiple', require('./components/TestMapMultipleComponent.vue').default);
 Vue.component('test-map-simple', require('./components/TestMapSimpleComponent.vue').default);
 Vue.component('google-map-api-loader', require('./components/GoogleMapApiLoader.vue').default);
+Vue.component('rakuten-api-hotel', require('./components/RakutenHotelComponent').default)
 // Vue.component('google-map-loader', require('./components/GoogleMapLoader.vue').default);
 // Vue.component('google-zip', require('./components/GoogleZip.vue').default);
 /**

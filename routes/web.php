@@ -33,11 +33,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('profile/edit', 'Admin\ProfileController@update');
     Route::get('profile/detele', 'Admin\ProfileController@delete');
     Route::get('profile', 'Admin\ProfileController@index');
-
 });
+
+Route::get('rakuten', 'RakutenController@index');
+
+Route::group(['prefix' => '/rakuten/hotelSearch/{large_class}/{middle_class}/{small_class}'], function() {
+    Route::get('/{detail_class}', 'RakutenController@hotelSearch');
+    Route::get('/', 'RakutenController@hotelSearch');
+});
+
+Route::get('rakuten/hotelDetail/{hotel_id}', 'RakutenController@hotelDetail');
 
 Route::group(['prefix' => 'api/v1'], function() {
     Route::get('news/all', 'NewsController@indexJson');
+    Route::get('rakuten/hotelArea', 'RakutenController@areaJson');
 });
 
 

@@ -1,0 +1,32 @@
+
+nav {
+    background-color: #ccc;
+}
+
+.middle-class {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+.small-class {
+    a {
+        text-decoration: underline;
+    }
+    margin-right: 1em;
+}
+.hotel-search-paginate {
+    margin: 0 0 0 0.5em;
+    div {
+        margin: 0 1em 0 0;
+    }
+}
+.hotel-info {
+    &:first-child {
+        border-top: 1px dotted #ccc;
+    }
+    padding: 0.5em 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.search-result-last {
+    margin: 2em;
+}
